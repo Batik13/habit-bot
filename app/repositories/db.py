@@ -2,7 +2,9 @@ from __future__ import annotations
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).resolve().parent.parent / "app.db"
+ROOT = Path(__file__).resolve().parents[2]
+DB_PATH = ROOT / "data" / "app.db"
+DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 class DB:
     def __init__(self, path: Path | None = None):
