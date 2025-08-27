@@ -1,0 +1,19 @@
+1. **Migrate DB**: `python -m app.repositories.migrate` (Step 2).
+2. **Run FastAPI**: `uvicorn app.main:app --host 0.0.0.0 --port 8080` (Step 9 + this step).
+3. **Register Webhook** (replace placeholders):
+
+curl -s "https://api.telegram.org/bot<TOKEN>/setWebhook" \
+-d url="https://<PUBLIC_HTTPS_URL>/tg/webhook" \
+-d secret_token="<SECRET>"
+
+
+# 1) Apply migrations locally or inside container
+python -m app.repositories.migrate
+
+# 2) Build & run
+docker compose up --build -d
+
+# 3) Set webhook
+curl -s "https://api.telegram.org/bot$BOT_TOKEN/setWebhook" \
+  -d url="https://<PUBLIC_HTTPS_URL>/tg/webhook" \
+  -d secret_token="$TG_WEBHOOK_SECRET"
